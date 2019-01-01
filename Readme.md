@@ -26,14 +26,17 @@ It uses [7zip](https://www.7-zip.org/download.html) to extract from the Windows 
 Credits
 -------
 
-The Makefile and the Readme are my fault, consider them Public Domain, or Apache License Version 2.0
+The Makefile and the Readme are my fault, consider them Public Domain, or Apache License Version 2.0.
+
 Everything else is thanks to the fantastic work of [LunarG](https://www.lunarg.com/).
 
 The files come from the various SDK's available from the [LunarG Vulkan SDK](https://vulkan.lunarg.com/sdk/home) page. From their website...
 
 
 License
+
 Copyright (c) 2015-2018 LunarG, Inc.
+
 Copyright (c) 2015-2018 Valve Corporation
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at:
