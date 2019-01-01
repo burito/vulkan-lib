@@ -30,8 +30,8 @@ lin: $(SDK_LIN)
 
 mac: $(SDK_MAC)
 	mkdir -p $@
-	tar --extract --file $(SDK_MAC) --strip-components 3 --directory mac `tar tf $(SDK_MAC) | grep -E 'bin/glslangValidator|lib/libvulkan.[0-9].[0-9].[0-9]+.dylib'`
-	cd mac && ln -s `ls libvulkan*` libvulkan.dylib && cd ..
+	tar --extract --file $(SDK_MAC) --strip-components 3 --directory mac `tar tf $(SDK_MAC) | grep -E 'bin/glslangValidator|lib/libvulkan.[0-9].[0-9].[0-9]+.dylib|dynamic/libMoltenVK.dylib'`
+	cd mac && mv dynamic/libMoltenVK.dylib . && rm -rf dynamic && ln -s `ls libvulkan*` libvulkan.dylib && cd ..
 
 win: $(SDK_WIN)
 	$(7ZIP) e $(SDK_WIN) bin/glslangValidator.exe lib/vulkan-1.lib lib/vulkan-1.pdb -owin
