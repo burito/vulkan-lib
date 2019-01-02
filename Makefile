@@ -26,12 +26,22 @@ $(SDK_LIN): download
 lin: $(SDK_LIN)
 	mkdir -p $@
 	tar --extract --file $(SDK_LIN) --strip-components 3 --directory lin `tar tf $(SDK_LIN) | grep -E 'bin/glslangValidator|lib/libvulkan.so.[0-9].[0-9]' | grep -v 'source'`
+ifeq ($(UNAME), Msys)
+#	cd lin && mklink libvulkan.so `ls libvulkan.so.*` && cd ..
+else
 	cd lin && ln -s `ls libvulkan.so.*` libvulkan.so && cd ..
+endif
 
 mac: $(SDK_MAC)
 	mkdir -p $@
 	tar --extract --file $(SDK_MAC) --strip-components 3 --directory mac `tar tf $(SDK_MAC) | grep -E 'bin/glslangValidator|lib/libvulkan.[0-9].[0-9].[0-9]+.dylib|dynamic/libMoltenVK.dylib'`
-	cd mac && mv dynamic/libMoltenVK.dylib . && rm -rf dynamic && ln -s `ls libvulkan*` libvulkan.dylib && cd ..
+	mv mac/dynamic/libMoltenVK.dylib mac/
+	rm -rf mac/dynamic
+ifeq ($(UNAME), Msys)
+#	cd mac && mklink libvulkan.dylib `ls libvulkan*`&& cd ..
+else
+	cd mac && ln -s `ls libvulkan*` libvulkan.dylib && cd ..
+endif
 
 win: $(SDK_WIN)
 	$(7ZIP) e $(SDK_WIN) bin/glslangValidator.exe lib/vulkan-1.lib lib/vulkan-1.pdb -owin
